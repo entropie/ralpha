@@ -23,7 +23,11 @@ end
 
 describe Ralpha::Pods do
   context "self" do
-    
+
+    it "should have a query" do
+      Ralpha["pi"].pods.all?{|spod| spod.respond_to?(:pod)}
+      Ralpha["pi"].pods.all?{|spod| spod.pod.should be_a(Query)}
+    end
     it "should have states" do
       Ralpha["pi"].pods.all?{|spod| spod.respond_to?(:states)}
       Ralpha["pi"].pods.all?{|spod| spod.states.should be_a(Array)}
