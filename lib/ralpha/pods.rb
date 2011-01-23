@@ -6,12 +6,20 @@
 module Ralpha
 
   class Pods < Array
+    attr_reader :query
+    
+    def initialize(query)
+      @query = query
+      super()
+    end
   end
 
   class SubPods < Array
     attr_reader :pod
+
     def initialize(pod)
       @pod = pod
+      super()
     end
   end
   

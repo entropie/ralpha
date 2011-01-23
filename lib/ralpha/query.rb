@@ -23,7 +23,7 @@ module Ralpha
 
     def pods
       unless @pods
-        @pods = Pods.new
+        @pods = Pods.new(self)
         xml.xpath("//pod").each do |pod|
           pods << Pod.new(pod["title"], pod, self)
         end
