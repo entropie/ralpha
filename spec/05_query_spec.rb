@@ -56,6 +56,22 @@ describe Query do
       }.to raise_error(NoMethodError)
     end
   end
+
+
+  context "#pods" do
+    it "should respond to #pods" do
+      Ralpha["pi"].respond_to?(:pods).should == true
+    end
+    
+    it "should have to #pods" do
+      Ralpha["pi"].pods.size.should == 5
+      Ralpha["pi"].pods.last.size.should == 3 #FIXME:
+    end
+
+    it "should a have nice inspect" do
+      puts Ralpha["pi"]
+    end
+  end
 end
 
 

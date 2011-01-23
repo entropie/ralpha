@@ -45,6 +45,72 @@ module Ralpha
     end
     
   end
+
+  class Pods < Array
+  end
+
+  class SubPods < Array
+    attr_reader :pod
+    def initialize(pod)
+      @pod = pod
+    end
+  end
+
+  class SubPod
+    attr_reader :title, :text, :pod
+    def initialize(title, xml, ppod)
+      @pod = ppod
+      @title = title
+      @text  = xml.xpath("plaintext").text
+    end
+
+    def inspect
+      "<Subpod @parent='#{pod.title}' @title='#{title}' '#{text}'>"
+    end
+
+    def to_s
+      "#{title}: #{text}"
+    end
+    
+  end
+  
+  class Pod
+
+    include Enumerable
+    
+    ValuesList = :title, :position, :scanner, :position, :error
+
+    ValuesList.each {|vl| attr_reader vl }
+
+    attr_reader :xml, :query
+
+    def subpods
+      @subpods ||= SubPods.new(self)
+    end
+    
+    def initialize(title, xml, query)
+      @title = title
+      @query = query
+
+      xml.xpath("subpod").each do |spod|
+        subpods << SubPod.new(spod["title"], spod, self)
+      end
+    end
+
+    def inspect
+      "<Pod Query='#{query.query}' Title='#{title}' Subpods=#{size}>"
+    end
+
+    def each(&blk)
+      subpods.each(&blk)
+    end
+
+    def size
+      subpods.size
+    end
+    alias :length :size
+
+  end
   
   class Query
 
@@ -61,7 +127,26 @@ module Ralpha
     def assumptions
       @assumptions ||= Assumptions.new(xml.xpath("//assumptions"))
     end
+
+    def pods
+      pods = Pods.new
+      xml.xpath("//pod").each do |pod|
+        pods << Pod.new(pod["title"], pod, self)
+      end
+      pods
+    end
     
+  end
+
+  def to_s
+    str = "Query '#{query}' Success=#{success?}"
+    pods.each do |pod|
+      str << "\n > #{pod.title}"
+      pod.each do |spod|
+        str << "\n  #{spod.to_s}"
+      end
+    end
+    str << ">"
   end
   
 end

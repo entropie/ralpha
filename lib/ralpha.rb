@@ -5,6 +5,7 @@
 
 require "rubygems"
 require "nokogiri"
+require 'enumerator'
 
 module Ralpha
 
