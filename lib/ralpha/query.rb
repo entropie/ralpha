@@ -5,6 +5,43 @@
 
 module Ralpha
 
+  class Assumptions
+    attr_accessor :xml
+    
+    def initialize(assumption)
+      @xml = assumption
+    end
+
+    def to_array
+      @xml.xpath("//assumption").children.grep(Nokogiri::XML::Element).map { |as|
+        [as["name"], as["desc"], as["input"]]
+      }
+    end
+
+    def to_hash
+      @hash ||= to_array.inject({}){|memo, arr|
+        key, *values = arr
+        memo[key.downcase.to_sym] = values
+        memo
+      }
+    end
+
+    def to_s
+      to_array.map{|a|
+        "%s: %s" % [a.first, a[1]]
+      }.join("; ")
+    end
+
+    def method_missing(m, *args, &blk)
+      if to_hash.include?(m)
+        to_hash[m].first
+      else
+        super
+      end
+    end
+    
+  end
+  
   class Query
 
     attr_accessor :query
@@ -14,11 +51,11 @@ module Ralpha
     end
 
     def success?
-      xml.xpath("//queryresult")["success"] == "true"
+      xml.xpath("//queryresult").first["success"] == "true"
     end
 
     def assumptions
-      
+      @assumptions ||= Assumptions.new(xml.xpath("//assumptions"))
     end
     
   end
