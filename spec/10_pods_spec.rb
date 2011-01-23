@@ -25,12 +25,22 @@ describe Ralpha::Pods do
   context "self" do
 
     it "should have a query" do
-      Ralpha["pi"].pods.all?{|spod| spod.respond_to?(:pod)}
-      Ralpha["pi"].pods.all?{|spod| spod.pod.should be_a(Query)}
+      Ralpha["pi"].pods.all?{|pod| pod.respond_to?(:query)}
+      Ralpha["pi"].pods.all?{|pod| pod.query.should be_a(Query)}
     end
+
+    it "should have a xml" do
+      Ralpha["pi"].pods.all?{|pod| pod.respond_to?(:xml)}
+      Ralpha["pi"].pods.first.xml.should be_a(Nokogiri::XML::Element)
+    end
+    
+    it "should respond_to has_states?" do
+      Ralpha["pi"].pods.all?{|pod| pod.respond_to?("hash_states?")}
+    end
+
     it "should have states" do
-      Ralpha["pi"].pods.all?{|spod| spod.respond_to?(:states)}
-      Ralpha["pi"].pods.all?{|spod| spod.states.should be_a(Array)}
+      Ralpha["pi"].pods.all?{|pod| pod.respond_to?(:states)}
+      Ralpha["pi"].pods.all?{|pod| pod.states.should be_a(Array)}
     end
 
     it "should have 5 pods" do
@@ -45,7 +55,7 @@ describe Ralpha::Pods do
 end
 
 describe Ralpha::SubPods do
-  context "#subpods" do
+  context "self" do
     it "should respond to has_image?" do
       Ralpha["pi"].pods.subpods.all?{|spod| spod.should respond_to("has_image?")} #.last[-1].image.alt.should == "pi = cos^(-1)(-1)"
     end

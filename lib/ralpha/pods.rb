@@ -67,7 +67,7 @@ module Ralpha
     
     ValuesList = :title, :position, :scanner, :position, :error
 
-    ValuesList.each {|vl| attr_reader vl }
+    attr_reader *ValuesList
 
     attr_reader :xml, :query
 
