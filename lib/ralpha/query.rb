@@ -13,7 +13,7 @@ module Ralpha
     end
 
     def to_array
-      @xml.xpath("//assumption").children.grep(Nokogiri::XML::Element).map { |as|
+      @array ||= @xml.xpath("//assumption").children.grep(Nokogiri::XML::Element).map { |as|
         [as["name"], as["desc"], as["input"]]
       }
     end
@@ -39,6 +39,10 @@ module Ralpha
         super
       end
     end
+
+    def each(&blk)
+      to_array.each(&blk)
+    end
     
   end
   
@@ -51,7 +55,7 @@ module Ralpha
     end
 
     def success?
-      xml.xpath("//queryresult").first["success"] == "true"
+      @success ||= xml.xpath("//queryresult").first["success"] == "true"
     end
 
     def assumptions
