@@ -38,9 +38,12 @@ module Ralpha
     end
 
     def image
-      if img = xml.xpath("img").first
-        @image ||= Image.new(img)
+      unless @image
+        if img = xml.xpath("img").first
+          @image ||= Image.new(img)
+        end
       end
+      @image
     end
 
     def has_image?
