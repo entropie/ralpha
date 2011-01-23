@@ -18,3 +18,6 @@ h1. Ralpha - accessing the Wolfram Alpha api with ruby with lots of KISS
     : pi = cos^(-1)(-1) {Image:true}
       should a have nice inspect
 </code></pre>
+
+
+h2. This is Alpha code and will not work.
