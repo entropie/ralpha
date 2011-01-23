@@ -7,6 +7,10 @@ module Ralpha
 
   class Pods < Array
     attr_reader :query
+
+    def subpods
+      self.map{|pod| pod.subpods }.flatten
+    end
     
     def initialize(query)
       @query = query
