@@ -1,0 +1,18 @@
+h1. Ralpha - accessing the Wolfram Alpha api with ruby with lots of KISS
+
+  puts Ralpha["pi"]
+
+  Query 'pi' Success=true
+   > Input
+    : pi {Image:true}
+   > Decimal approximation [More digits]
+    : 3.1415926535897932384626433832795028841971693993751058209749... {Image:true}
+   > Property
+    : pi is a transcendental number {Image:true}
+   > Continued fraction [Fraction form, More terms]
+    : [3; 7, 15, 1, 292, 1, 1, 1, 2, 1, 3, 1, 14, 2, 1, 1, 2, 2, 2, 2, 1, 84, 2, 1, 1, ...] {Image:true}
+   > Alternative representations [More]
+    : pi = 180 ° {Image:true}
+    : pi = -i log(-1) {Image:true}
+    : pi = cos^(-1)(-1) {Image:true}
+      should a have nice inspect
