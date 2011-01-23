@@ -12,6 +12,14 @@ module Ralpha
     def initialize(api_key, query, opts = {})
       @query = query
     end
+
+    def success?
+      xml.xpath("//queryresult")["success"] == "true"
+    end
+
+    def assumptions
+      
+    end
     
   end
   

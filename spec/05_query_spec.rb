@@ -20,7 +20,10 @@ describe Query do
     it "should be an instance of Nokogiri::XML" do
       Ralpha["pi"].xml.class.should == Nokogiri::XML::Document
     end
-    
+
+    it "should return true on success?" do
+      Ralpha["pi"].success?.should == true
+    end
   end
 end
 
