@@ -9,20 +9,18 @@ require 'enumerator'
 
 module Ralpha
 
-  class RalphaException < Exception
-  end
-  
-  class EmptyQuery < RalphaException
-  end
-  
-
   Source  = File.dirname(File.dirname(File.expand_path(__FILE__)))
 
   QueryURI = "http://api.wolframalpha.com/v1/query"
   
   $: << File.join(Source, "lib/ralpha")
 
+  require "exceptions"
   require "query"
+  require "assumptions"
+  require "states"
+  require "image"
+  require "pods"
   require "spec"
   
   Version = [0, 0, 1]
