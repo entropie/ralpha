@@ -23,7 +23,7 @@ module Ralpha
   require "pods"
   require "spec"
   
-  Version = [0, 0, 1]
+  Version = [0, 0, 3]
 
   class << self
 
