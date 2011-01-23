@@ -3,9 +3,20 @@
 # Author:  Michael 'entropie' Trommer <mictro@gmail.com>
 #
 
-include Ralpha
+module Ralpha
 
-Ralpha.spec = true
+  class Query
+
+    attr_accessor :query
+    
+    def initialize(api_key, query, opts = {})
+      @query = query
+    end
+    
+  end
+  
+end
+
 
 =begin
 Local Variables:
