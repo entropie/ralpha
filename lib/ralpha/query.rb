@@ -216,7 +216,6 @@ module Ralpha
       str
     end
   end
-
   
 end
 

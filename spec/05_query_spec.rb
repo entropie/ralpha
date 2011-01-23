@@ -68,6 +68,15 @@ describe Query do
       Ralpha["pi"].pods.last.size.should == 3 #FIXME:
     end
 
+    it "should have images" do
+      Ralpha["pi"].pods.last[-1].image.alt.should == "pi = cos^(-1)(-1)"
+    end
+
+    it "should have states" do
+      Ralpha["pi"].pods.last.states
+    end
+
+    
     it "should a have nice inspect" do
       puts Ralpha["pi"]
     end
