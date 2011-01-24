@@ -90,9 +90,9 @@ module Ralpha
 
     def states
       unless @states
-        @states = States.new
+        @states = States.new(self)
         xml.xpath("states").children.grep(Nokogiri::XML::Element).map{|state|
-          @states << State.new(state["name"], state["input"])
+          @states << State.new(query, state["name"], state["input"])
         }
       end
       @states

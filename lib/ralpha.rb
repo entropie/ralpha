@@ -6,6 +6,7 @@
 require "rubygems"
 require "nokogiri"
 require 'enumerator'
+require 'cgi'
 
 module Ralpha
 
@@ -42,7 +43,7 @@ module Ralpha
     def query_uri
       @query_uri || QueryURI
     end
-    
+
     def fetch(str)
       raise EmptyQuery if str.nil? or str.strip.empty?
       klass =

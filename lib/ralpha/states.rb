@@ -6,13 +6,29 @@
 module Ralpha
 
   class States < Array
+    attr_accessor :query
+    def initialize(query)
+      @query = query
+      super()
+    end
   end
 
   class State
-    attr_reader :name, :input
-    def initialize(name, input)
-      @name, @input = name, input
+    attr_reader :query, :name, :input
+    def initialize(query, name, input)
+      @query, @name, @input = query, name, input
     end
+
+    def subquery(opts = {})
+      klass =
+        if Ralpha.spec
+          Spec::MockPodStateQuery
+        else
+          PodStateQuery
+        end
+      klass.new(Ralpha.api_key, query, self, opts)
+    end
+    
   end
 
 end

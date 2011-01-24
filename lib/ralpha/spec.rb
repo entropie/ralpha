@@ -15,6 +15,17 @@ module Ralpha
       end
       
     end
+
+    class MockPodStateQuery < PodStateQuery
+      SpecNameToFileMapping = {
+        "DecimalApproximation__More digits" => "pi_dec_approx.xml"
+      }
+      def xml
+        file = SpecNameToFileMapping[query]
+        @xml ||= Nokogiri::XML(File.readlines(File.join(SpecDataDir, file)).join)
+      end
+    end
+    
   end
 end
 

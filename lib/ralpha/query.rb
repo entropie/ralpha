@@ -30,9 +30,13 @@ module Ralpha
       end
       @pods
     end
+
+    def inspect
+      "<#{self.class} #{@query}>"
+    end
     
     def to_s
-      str = "Query '#{query}' Success=#{success?}"
+      str = "Query [#{query}] Success [#{success?}]"
       pods.each do |pod|
         str << "\n > #{pod.title}"
         if pod.has_states?
@@ -50,6 +54,22 @@ module Ralpha
       end
       str
     end
+  end
+
+
+  class PodStateQuery < Query
+    attr_accessor :orq_query, :state
+    def initialize(api_key, orq_query, state, opts = {})
+      super(api_key, query, opts)
+      @orq_query = orq_query
+      @state     = state
+      @query     = @state.input
+    end
+
+    def inspect
+      "<#{self.class} Query [#{orq_query.query}] Success [#{success?}] PodState [#{state.name}:#{state.input}]>"
+    end
+
   end
   
 end
