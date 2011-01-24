@@ -18,7 +18,7 @@ h1. Ralpha - accessing the Wolfram Alpha api with ruby with lots of KISS
     : pi = cos^(-1)(-1) {Image:true}
       should a have nice inspect
 
-   puts Ralpha["pi"].pods[1].states.first.subquery
+  puts Ralpha["pi"].pods[1].states.first.subquery
 
   Query [DecimalApproximation__More digits] Success [true]
    > Input
